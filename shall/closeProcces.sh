@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DB_FILE_PATH="$DB_FILE_PATH"
+DATABASE_FILE="$DATABASE_FILE_PATH"
 
 if [ -z "$DB_FILE_PATH"]; then
     echo "DB_FILE_PATH is null"

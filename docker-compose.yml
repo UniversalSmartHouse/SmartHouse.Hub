@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  smarthousehub:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - DATABASE_FILE=SmartHouse.db
+      # - DATABASE_FILE_PATH
