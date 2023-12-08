@@ -5,7 +5,9 @@ using SmartHouseHub.API.Interfaces;
 
 namespace SmartHouseHub.API.Controllers
 {
-    public class LogController : Controller
+	[ApiController]
+	[Route("[controller]")]
+	public class LogController : Controller
     {
         public readonly ILogService _logService;
         public LogController(ILogService logService)
