@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using SmartHouseHub.API.Helpers;
 using SmartHouseHub.API.Interfaces;
 using SmartHouseHub.API.Servises;
@@ -16,6 +17,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddMvc().AddJsonOptions(options =>
+{
+	options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 
 // Add services
 builder.Services.AddTransient<IInstanceService, InstanceService>();

@@ -16,6 +16,7 @@
 	{
 		Warn,
 		Error,
+		Notification,
 		Success
 	}
 }
