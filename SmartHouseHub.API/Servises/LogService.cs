@@ -1,23 +1,27 @@
 ﻿using Affiliates.API.DTOs;
-using LiteDB;
 using SmartHouseHub.API.Dto;
 using SmartHouseHub.API.Helpers;
 using SmartHouseHub.API.Interfaces;
 
 namespace SmartHouseHub.API.Servises
 {
-	public class InstanceService : IInstanceService
+	public class LogService : ILogService
 	{
 		private readonly LiteDbHelper _databaseHelper;
 
-		public InstanceService(LiteDbHelper databaseHeler)
-        {
+		public LogService(LiteDbHelper databaseHeler)
+		{
 			_databaseHelper = databaseHeler;
+		}
+
+		public async Task<int> DeleteAll()
+		{
+			return _databaseHelper.Log.DeleteAll();
 		}
 
 		public async Task<DeleteDto> DeleteById(Guid id)
 		{
-			var model = _databaseHelper.Instances.Delete(id);
+			var model = _databaseHelper.Log.Delete(id);
 			var deleteDto = new DeleteDto();
 
 			if (model == false)
@@ -30,30 +34,25 @@ namespace SmartHouseHub.API.Servises
 			return deleteDto;
 		}
 
-		public async Task<List<InstanceDto>> GetAll()
+		public async Task<List<LogDto>> GetAll()
 		{
-			return _databaseHelper.Instances.FindAll().ToList();
+			return _databaseHelper.Log.FindAll().ToList();
 		}
 
-		public async Task<InstanceDto> GetById(Guid id)
+		public async Task<LogDto> Insert(LogDto obj)
 		{
-			return _databaseHelper.Instances.FindById(id);
-		}
-
-		public async Task<InstanceDto> Insert(InstanceDto obj)
-		{
-			if (obj.Id == null || !_databaseHelper.Instances.Exists(x => x.Id == obj.Id))
+			if (obj.Id == null || !_databaseHelper.Log.Exists(x => x.Id == obj.Id))
 			{
 				if (obj.Id == null)
 				{
 					obj.Id = Guid.NewGuid();
 				}
 
-				_databaseHelper.Instances.Insert(obj);
+				_databaseHelper.Log.Insert(obj);
 			}
 			else
 			{
-				_databaseHelper.Instances.Update(obj);
+				_databaseHelper.Log.Update(obj);
 			}
 
 			return obj;

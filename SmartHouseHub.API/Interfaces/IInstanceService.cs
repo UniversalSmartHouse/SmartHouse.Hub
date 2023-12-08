@@ -8,6 +8,6 @@ namespace SmartHouseHub.API.Interfaces
 		Task<List<InstanceDto>> GetAll();
 		Task<InstanceDto> GetById(Guid id);
 		Task<DeleteDto> DeleteById(Guid id);
-		Task<InstanceDto> Insert(InstanceDto instanceDto);
+		Task<InstanceDto> Insert(InstanceDto obj);
 	}
 }

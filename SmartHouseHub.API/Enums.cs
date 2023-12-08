@@ -11,4 +11,11 @@
 		Enabled,
 		Disabled
 	}
+
+	public enum LogType
+	{
+		Warn,
+		Error,
+		Success
+	}
 }

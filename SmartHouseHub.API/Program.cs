@@ -16,6 +16,7 @@ builder.Services.AddSwaggerGen();
 
 // Add services
 builder.Services.AddTransient<IInstanceService, InstanceService>();
+builder.Services.AddTransient<ILogService, LogService>();
 
 builder.Services.AddSingleton<LiteDbHelper>();
 
