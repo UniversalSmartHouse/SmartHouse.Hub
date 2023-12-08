@@ -2,6 +2,9 @@ using SmartHouseHub.API.Helpers;
 using SmartHouseHub.API.Interfaces;
 using SmartHouseHub.API.Servises;
 
+// For dev
+Environment.SetEnvironmentVariable("DATABASE_FILE", "SmartHouse.db");
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
