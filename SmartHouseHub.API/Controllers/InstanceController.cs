@@ -60,6 +60,31 @@ namespace SmartHouseHub.API.Controllers
 			}
 		}
 
+		/// <summary>
+		/// Delete all documents inside collection. Returns how many documents was deleted.
+		/// </summary>
+		/// <returns></returns>
+		[HttpDelete("")]
+		public async Task<int> DeleteAll()
+		{
+			try
+			{
+				return await _instanceService.DeleteAll();
+			}
+			catch (Exception ex)
+			{
+				await _logService.Insert(new()
+				{
+					Id = Guid.NewGuid(),
+					Message = ex.Message,
+					Type = LogType.Error,
+					Timestamp = DateTime.UtcNow,
+				});
+
+				throw;
+			}
+		}
+
 		[HttpDelete("{id}")]
 		public async Task<DeleteDto> DeleteById(Guid id)
 		{
