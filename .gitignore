@@ -396,3 +396,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+SmartHouseHub.API/SmartHouse-log.db
+SmartHouseHub.API/SmartHouse.db

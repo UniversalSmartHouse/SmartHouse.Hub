@@ -31,6 +31,9 @@ namespace SmartHouseHub.API.Servises
 				return deleteDto;
 			}
 
+			deleteDto.Id = id;
+			deleteDto.IsDeleted = true;
+
 			return deleteDto;
 		}
 
