@@ -14,7 +14,7 @@
 
 	public enum LogType
 	{
-		Warn,
+		Warning,
 		Error,
 		Notification,
 		Success
