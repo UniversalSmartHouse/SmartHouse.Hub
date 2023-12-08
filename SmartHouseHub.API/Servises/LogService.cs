@@ -14,6 +14,10 @@ namespace SmartHouseHub.API.Servises
 			_databaseHelper = databaseHeler;
 		}
 
+		/// <summary>
+		/// Delete all documents inside collection. Returns how many documents was deleted.
+		/// </summary>
+		/// <returns></returns>
 		public async Task<int> DeleteAll()
 		{
 			return _databaseHelper.Log.DeleteAll();

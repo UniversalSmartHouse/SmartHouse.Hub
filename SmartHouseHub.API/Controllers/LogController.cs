@@ -56,7 +56,11 @@ namespace SmartHouseHub.API.Controllers
             }
         }
 
-        [HttpDelete("")]
+		/// <summary>
+		/// Delete all documents inside collection. Returns how many documents was deleted.
+		/// </summary>
+		/// <returns></returns>
+		[HttpDelete("")]
         public async Task<int> DeleteAll()
         {
             try
