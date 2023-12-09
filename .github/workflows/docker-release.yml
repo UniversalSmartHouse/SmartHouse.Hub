@@ -1,0 +1,18 @@
+name: Docker Image Releast
+
+on:
+   release:
+
+jobs:
+    DockerImage:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Docker login
+              run: docker login --username ${{ secrets.GITHUBLOGIN }} --password ${{ secrets.DockerToken }} ghcr.io
+
+            - name: Build image
+              run: docker build . --tag ghcr.io/universalsmarthouse/universalsmarthouse-web:${{ steps.get_tag.outputs.TAG_NAME }} -f ./Dockerfile
+
+            - name: push
+              run: docker push ghcr.io/universalsmarthouse/universalsmarthouse-web:${{ steps.get_tag.outputs.TAG_NAME }}
