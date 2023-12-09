@@ -1,22 +1,22 @@
 name: Docker Image Releast
 
 on:
-   release:
-      types: [published]
+  release:
+    types: [published]
 
 jobs:
-    DockerImage:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - name: Docker login
-              run: docker login --username ${{ secrets.GITHUBLOGIN }} --password ${{ secrets.DockerToken }} ghcr.io
+  DockerImage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Docker login
+        run: docker login --username ${{ secrets.GITHUBLOGIN }} --password ${{ secrets.DockerToken }} ghcr.io
 
-            - name: Extract tag from release
-              run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      - name: Extract tag from release
+        run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
-            - name: Build image
-              run: docker build . --tag ghcr.io/universalsmarthouse/universalsmarthouse-web:${{ steps.get_tag.outputs.TAG_NAME }} -f ./Dockerfile
+      - name: Build image
+        run: docker build . --tag ghcr.io/universalsmarthouse/universalsmarthouse-web:${{ env.RELEASE_TAG }} -f ./Dockerfile
 
-            - name: push
-              run: docker push ghcr.io/universalsmarthouse/universalsmarthouse-web:${{ steps.event..TAG_NAME }}
+      - name: push
+        run: docker push ghcr.io/universalsmarthouse/universalsmarthouse-web:${{ env.RELEASE_TAG }}
