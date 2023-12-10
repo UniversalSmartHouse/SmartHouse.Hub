@@ -1,0 +1,19 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: ["developer"]
+
+jobs:
+  DockerImage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Docker login
+        run: docker login --username ${{ secrets.GITHUBLOGIN }} --password ${{ secrets.DockerToken }} ghcr.io
+
+      - name: Build image
+        run: docker build . --tag ghcr.io/universalsmarthouse/smarthouse-hub-dev:latest -f ./Dockerfile
+
+      - name: push
+        run: docker push ghcr.io/universalsmarthouse/smarthouse-hub-dev:latest
