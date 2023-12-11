@@ -1,5 +1,5 @@
 ﻿using Affiliates.API.DTOs;
-using SmartHouseHub.API.Dto;
+using SmartHouseHub.API.DTOs;
 
 namespace SmartHouseHub.API.Interfaces
 {

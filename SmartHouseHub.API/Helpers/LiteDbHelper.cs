@@ -1,6 +1,6 @@
 ﻿using LiteDB;
 using Medallion.Shell;
-using SmartHouseHub.API.Dto;
+using SmartHouseHub.API.DTOs;
 
 namespace SmartHouseHub.API.Helpers
 {
@@ -8,20 +8,20 @@ namespace SmartHouseHub.API.Helpers
     {
         public LiteDatabase Database { get; private set; }
 
-		public ILiteCollection<InstanceDto> Instances { get; private set; }
+        public ILiteCollection<InstanceDto> Instances { get; private set; }
         public ILiteCollection<LogDto> Log { get; private set; }
 
-		public LiteDbHelper()
+        public LiteDbHelper()
         {
             try
             {
-                CreateDbInstance(); 
+                CreateDbInstance();
             }
             catch
             {
                 if (Database != null)
                 {
-					Database.Dispose();
+                    Database.Dispose();
                 }
 
                 var result = Command.Run("/bin/bash/", "shall/closeProcces.sh").Result;
@@ -37,18 +37,18 @@ namespace SmartHouseHub.API.Helpers
         {
             if (Database != null)
             {
-				Database.Dispose();
+                Database.Dispose();
             }
         }
 
         private void CreateDbInstance()
         {
-			Database = new(
-               Path.Combine(Directory.GetCurrentDirectory(), 
+            Database = new(
+               Path.Combine(Directory.GetCurrentDirectory(),
                Environment.GetEnvironmentVariable("DATABASE_FILE")));
 
             Instances = Database.GetCollection<InstanceDto>("Instances");
             Log = Database.GetCollection<LogDto>("Log");
-		}
+        }
     }
 }

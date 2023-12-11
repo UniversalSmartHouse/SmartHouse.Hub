@@ -1,4 +1,4 @@
-﻿namespace SmartHouseHub.API.Dto
+﻿namespace SmartHouseHub.API.DTOs
 {
 	public class InstanceDto
 	{
