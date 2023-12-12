@@ -24,7 +24,7 @@ builder.Services.AddMvc().AddJsonOptions(options =>
 });
 
 // Add services
-builder.Services.AddTransient<IInstanceService, InstanceService>();
+builder.Services.AddTransient<IDeviceService, DeviceService>();
 builder.Services.AddTransient<ILogService, LogService>();
 
 builder.Services.AddSingleton<LiteDbHelper>();

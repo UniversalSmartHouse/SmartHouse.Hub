@@ -7,19 +7,19 @@ namespace SmartHouseHub.API.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
-	public class InstanceController : Controller
+	public class DeviceController : Controller
 	{
-		private readonly IInstanceService _instanceService;
+		private readonly IDeviceService _instanceService;
 		private readonly ILogService _logService;
 
-		public InstanceController(IInstanceService instanceService, ILogService logService)
+		public DeviceController(IDeviceService instanceService, ILogService logService)
 		{
 			_instanceService = instanceService;
 			_logService = logService;
 		}
 
 		[HttpGet("")]
-		public async Task<List<InstanceDto>> GetAll()
+		public async Task<List<DeviceDto>> GetAll()
 		{
 			try
 			{
@@ -40,7 +40,7 @@ namespace SmartHouseHub.API.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public async Task<InstanceDto> GetById(Guid id)
+		public async Task<DeviceDto> GetById(Guid id)
 		{
 			try
 			{
@@ -107,7 +107,7 @@ namespace SmartHouseHub.API.Controllers
 		}
 
 		[HttpPost("")]
-		public async Task<InstanceDto> Insert([FromBody] InstanceDto obj)
+		public async Task<DeviceDto> Insert([FromBody] DeviceDto obj)
 		{
 			try
 			{

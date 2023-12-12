@@ -8,7 +8,7 @@ namespace SmartHouseHub.API.Helpers
     {
         public LiteDatabase Database { get; private set; }
 
-		public ILiteCollection<InstanceDto> Instances { get; private set; }
+		public ILiteCollection<DeviceDto> Instances { get; private set; }
         public ILiteCollection<LogDto> Log { get; private set; }
 
 		public LiteDbHelper()
@@ -47,7 +47,7 @@ namespace SmartHouseHub.API.Helpers
                Path.Combine(Directory.GetCurrentDirectory(), 
                Environment.GetEnvironmentVariable("DATABASE_FILE")));
 
-            Instances = Database.GetCollection<InstanceDto>("Instances");
+            Instances = Database.GetCollection<DeviceDto>("Instances");
             Log = Database.GetCollection<LogDto>("Log");
 		}
     }

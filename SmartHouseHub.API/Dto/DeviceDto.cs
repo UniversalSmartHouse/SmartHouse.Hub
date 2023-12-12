@@ -1,6 +1,6 @@
 ﻿namespace SmartHouseHub.API.Dto
 {
-	public class InstanceDto
+	public class DeviceDto
 	{
 		public Guid Id { get; set; }
 		public string Name { get; set; }

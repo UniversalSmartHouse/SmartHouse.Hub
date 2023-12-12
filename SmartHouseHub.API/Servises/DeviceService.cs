@@ -6,11 +6,11 @@ using SmartHouseHub.API.Interfaces;
 
 namespace SmartHouseHub.API.Servises
 {
-	public class InstanceService : IInstanceService
+	public class DeviceService : IDeviceService
 	{
 		private readonly LiteDbHelper _databaseHelper;
 
-		public InstanceService(LiteDbHelper databaseHeler)
+		public DeviceService(LiteDbHelper databaseHeler)
         {
 			_databaseHelper = databaseHeler;
 		}
@@ -42,17 +42,17 @@ namespace SmartHouseHub.API.Servises
 			return deleteDto;
 		}
 
-		public async Task<List<InstanceDto>> GetAll()
+		public async Task<List<DeviceDto>> GetAll()
 		{
 			return _databaseHelper.Instances.FindAll().ToList();
 		}
 
-		public async Task<InstanceDto> GetById(Guid id)
+		public async Task<DeviceDto> GetById(Guid id)
 		{
 			return _databaseHelper.Instances.FindById(id);
 		}
 
-		public async Task<InstanceDto> Insert(InstanceDto obj)
+		public async Task<DeviceDto> Insert(DeviceDto obj)
 		{
 			if (obj.Id == null || !_databaseHelper.Instances.Exists(x => x.Id == obj.Id))
 			{
