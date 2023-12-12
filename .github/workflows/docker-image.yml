@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Create prod docker image 
 
 on:
   push:
