@@ -24,7 +24,7 @@ builder.Services.AddMvc().AddJsonOptions(options =>
 });
 
 // Add services
-builder.Services.AddTransient<IInstanceService, InstanceService>();
+builder.Services.AddTransient<IDeviceService, DeviceService>();
 builder.Services.AddTransient<ILogService, LogService>();
 
 builder.Services.AddSingleton<LiteDbHelper>();
@@ -35,11 +35,11 @@ var app = builder.Build();
 app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 // Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-app.UseSwagger();
-app.UseSwaggerUI();
-//}
+if (app.Environment.IsDevelopment())
+{
+	app.UseSwagger();
+	app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 

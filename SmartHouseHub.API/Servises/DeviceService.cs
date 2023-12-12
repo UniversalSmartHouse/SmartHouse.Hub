@@ -1,15 +1,16 @@
 ﻿using Affiliates.API.DTOs;
+using LiteDB;
 using SmartHouseHub.API.DTOs;
 using SmartHouseHub.API.Helpers;
 using SmartHouseHub.API.Interfaces;
 
 namespace SmartHouseHub.API.Servises
 {
-    public class LogService : ILogService
+    public class DeviceService : IDeviceService
     {
         private readonly LiteDbHelper _databaseHelper;
 
-        public LogService(LiteDbHelper databaseHeler)
+        public DeviceService(LiteDbHelper databaseHeler)
         {
             _databaseHelper = databaseHeler;
         }
@@ -20,12 +21,12 @@ namespace SmartHouseHub.API.Servises
         /// <returns></returns>
         public async Task<int> DeleteAll()
         {
-            return _databaseHelper.Log.DeleteAll();
+            return _databaseHelper.Instances.DeleteAll();
         }
 
         public async Task<DeleteDto> DeleteById(Guid id)
         {
-            var model = _databaseHelper.Log.Delete(id);
+            var model = _databaseHelper.Instances.Delete(id);
             var deleteDto = new DeleteDto();
 
             if (model == false)
@@ -41,25 +42,30 @@ namespace SmartHouseHub.API.Servises
             return deleteDto;
         }
 
-        public async Task<List<LogDto>> GetAll()
+        public async Task<List<DeviceDto>> GetAll()
         {
-            return _databaseHelper.Log.FindAll().ToList();
+            return _databaseHelper.Instances.FindAll().ToList();
         }
 
-        public async Task<LogDto> Insert(LogDto obj)
+        public async Task<DeviceDto> GetById(Guid id)
         {
-            if (obj.Id == Guid.Empty || !_databaseHelper.Log.Exists(x => x.Id == obj.Id))
+            return _databaseHelper.Instances.FindById(id);
+        }
+
+        public async Task<DeviceDto> Insert(DeviceDto obj)
+        {
+            if (obj.Id == Guid.Empty || !_databaseHelper.Instances.Exists(x => x.Id == obj.Id))
             {
-                if (obj.Id == Guid.Empty)
+                if (obj.Id == Guid.Empty) 
                 {
 					obj.Id = Guid.NewGuid();
 				}
 
-                _databaseHelper.Log.Insert(obj);
+                _databaseHelper.Instances.Insert(obj);
             }
             else
             {
-                _databaseHelper.Log.Update(obj);
+                _databaseHelper.Instances.Update(obj);
             }
 
             return obj;

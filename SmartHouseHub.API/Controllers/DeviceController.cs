@@ -1,4 +1,4 @@
-﻿using Affiliates.API.DTOs;
+using Affiliates.API.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using SmartHouseHub.API.DTOs;
 using SmartHouseHub.API.Interfaces;
@@ -7,20 +7,23 @@ namespace SmartHouseHub.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class LogController : Controller
+    public class DeviceController : Controller
     {
-        public readonly ILogService _logService;
-        public LogController(ILogService logService)
+        private readonly IDeviceService _instanceService;
+        private readonly ILogService _logService;
+
+        public DeviceController(IDeviceService instanceService, ILogService logService)
         {
+            _instanceService = instanceService;
             _logService = logService;
         }
 
         [HttpGet("")]
-        public async Task<List<LogDto>> GetAll()
+        public async Task<List<DeviceDto>> GetAll()
         {
             try
             {
-                return await _logService.GetAll();
+                return await _instanceService.GetAll();
             }
             catch (Exception ex)
             {
@@ -31,16 +34,17 @@ namespace SmartHouseHub.API.Controllers
                     Type = LogType.Error,
                     Timestamp = DateTime.UtcNow,
                 });
+
                 throw;
             }
         }
 
-        [HttpDelete("{id}")]
-        public async Task<DeleteDto> DeleteById(Guid id)
+        [HttpGet("{id}")]
+        public async Task<DeviceDto> GetById(Guid id)
         {
             try
             {
-                return await _logService.DeleteById(id);
+                return await _instanceService.GetById(id);
             }
             catch (Exception ex)
             {
@@ -65,7 +69,28 @@ namespace SmartHouseHub.API.Controllers
         {
             try
             {
-                return await _logService.DeleteAll();
+                return await _instanceService.DeleteAll();
+            }
+            catch (Exception ex)
+            {
+                await _logService.Insert(new()
+                {
+                    Id = Guid.NewGuid(),
+                    Message = ex.Message,
+                    Type = LogType.Error,
+                    Timestamp = DateTime.UtcNow,
+                });
+
+                throw;
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<DeleteDto> DeleteById(Guid id)
+        {
+            try
+            {
+                return await _instanceService.DeleteById(id);
             }
             catch (Exception ex)
             {
@@ -82,11 +107,11 @@ namespace SmartHouseHub.API.Controllers
         }
 
         [HttpPost("")]
-        public async Task<LogDto> Insert([FromBody] LogDto obj)
+        public async Task<DeviceDto> Insert([FromBody] DeviceDto obj)
         {
             try
             {
-                return await _logService.Insert(obj);
+                return await _instanceService.Insert(obj);
             }
             catch (Exception ex)
             {
