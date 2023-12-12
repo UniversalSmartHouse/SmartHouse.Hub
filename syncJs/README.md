@@ -1,4 +1,4 @@
-# How to use that
+# How to use it
 
 Use yarn or npm to install packages.
 
