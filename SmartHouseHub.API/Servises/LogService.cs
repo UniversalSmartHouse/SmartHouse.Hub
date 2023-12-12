@@ -48,12 +48,9 @@ namespace SmartHouseHub.API.Servises
 
         public async Task<LogDto> Insert(LogDto obj)
         {
-            if (obj.Id == null || !_databaseHelper.Log.Exists(x => x.Id == obj.Id))
+            if (obj.Id == Guid.Empty || !_databaseHelper.Log.Exists(x => x.Id == obj.Id))
             {
-                if (obj.Id == null)
-                {
-                    obj.Id = Guid.NewGuid();
-                }
+                obj.Id = Guid.NewGuid();
 
                 _databaseHelper.Log.Insert(obj);
             }
