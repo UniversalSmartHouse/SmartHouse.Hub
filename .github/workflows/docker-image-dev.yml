@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: creata developer docker image
 
 on:
   push:
