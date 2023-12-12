@@ -1,4 +1,4 @@
-name: creata developer docker image
+name: Creata developer docker image
 
 on:
   push:
