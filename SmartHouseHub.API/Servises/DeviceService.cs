@@ -54,12 +54,9 @@ namespace SmartHouseHub.API.Servises
 
         public async Task<DeviceDto> Insert(DeviceDto obj)
         {
-            if (obj.Id == null || !_databaseHelper.Instances.Exists(x => x.Id == obj.Id))
+            if (obj.Id == Guid.Empty || !_databaseHelper.Instances.Exists(x => x.Id == obj.Id))
             {
-                if (obj.Id == null)
-                {
-                    obj.Id = Guid.NewGuid();
-                }
+                obj.Id = Guid.NewGuid();
 
                 _databaseHelper.Instances.Insert(obj);
             }
