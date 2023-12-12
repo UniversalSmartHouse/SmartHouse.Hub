@@ -50,7 +50,10 @@ namespace SmartHouseHub.API.Servises
         {
             if (obj.Id == Guid.Empty || !_databaseHelper.Log.Exists(x => x.Id == obj.Id))
             {
-                obj.Id = Guid.NewGuid();
+                if (obj.Id == Guid.Empty)
+                {
+					obj.Id = Guid.NewGuid();
+				}
 
                 _databaseHelper.Log.Insert(obj);
             }
