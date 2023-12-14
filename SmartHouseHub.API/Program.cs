@@ -1,3 +1,4 @@
+﻿using System.IO.Ports;
 using System.Text.Json.Serialization;
 using SmartHouseHub.API.Brokers.ZWave;
 using SmartHouseHub.API.Helpers;
@@ -29,9 +30,28 @@ builder.Services.AddTransient<IDeviceService, DeviceService>();
 builder.Services.AddTransient<ILogService, LogService>();
 
 // Add Brokers
-//TODO need to testing this broker
-builder.Services.AddSingleton<IZWaveBroker>(provider => new ZWaveBroker("COM3"));
+var portName = "COM3";
+var isPortAvailable = true;
 
+try
+{
+	using (var port = new SerialPort(portName))
+	{
+		port.Open();
+	}
+}
+catch (UnauthorizedAccessException)
+{
+	isPortAvailable = false;
+}
+
+if (isPortAvailable)
+{
+	//TODO need to testing this broker
+	builder.Services.AddSingleton<IZWaveBroker>(provider => new ZWaveBroker(portName));
+}
+
+// Add database
 builder.Services.AddSingleton<LiteDbHelper>();
 
 var app = builder.Build();
