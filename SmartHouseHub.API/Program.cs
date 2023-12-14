@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using SmartHouseHub.API.Brokers.ZWave;
 using SmartHouseHub.API.Helpers;
 using SmartHouseHub.API.Interfaces;
 using SmartHouseHub.API.Servises;
@@ -26,6 +27,10 @@ builder.Services.AddMvc().AddJsonOptions(options =>
 // Add services
 builder.Services.AddTransient<IDeviceService, DeviceService>();
 builder.Services.AddTransient<ILogService, LogService>();
+
+// Add Brokers
+//TODO need to testing this broker
+builder.Services.AddSingleton<IZWaveBroker>(provider => new ZWaveBroker("COM3"));
 
 builder.Services.AddSingleton<LiteDbHelper>();
 
