@@ -20,6 +20,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Logger
+builder.Services.AddLogging(loggerSeq =>
+	loggerSeq.AddSeq(builder.Configuration.GetSection("Seq")));
+
 builder.Services.AddMvc().AddJsonOptions(options =>
 {
 	options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
