@@ -76,6 +76,10 @@ namespace SmartHouseHub.API.Brokers.ZWave
 			switch (args.Status)
 			{
 				case NodeQueryStatus.NodeAdded:
+					foreach(var node in _controller.Nodes)
+					{
+						SendBinarySwitchCommand(node.Id, true);
+					}
 					break;
 				case NodeQueryStatus.NodeRemoved:
 					break;
@@ -120,6 +124,7 @@ namespace SmartHouseHub.API.Brokers.ZWave
 					_controller.Initialize();
 					break;
 				case ControllerStatus.Disconnected:
+					Dispose();
 					break;
 				case ControllerStatus.Initializing:
 					break;
@@ -127,6 +132,7 @@ namespace SmartHouseHub.API.Brokers.ZWave
 					_controller.Discovery();
 					break;
 				case ControllerStatus.Error:
+					Dispose();
 					break;
 				default:
 					break;
