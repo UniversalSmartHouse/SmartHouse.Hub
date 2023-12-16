@@ -3,6 +3,5 @@
 # env
 
 ```dosini
-DATABASE_FILE=SmartHouse.db
-DATABASE_FILE_PATH=
+LiteDB_FILE=SmartHouse.db
 ```

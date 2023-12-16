@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const filepath = "../sync_gateway_config.js";
+const filepath = "../gatewayConfig.js";
 
 fs.watch(filepath, (eventType, filename) => {
 	if (filename) {

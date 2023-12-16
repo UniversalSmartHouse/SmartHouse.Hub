@@ -1,13 +1,34 @@
 version: "3.8"
 
 services:
-  smarthousehub.hub:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+  # smarthousehub.hub:
+  #   build:
+  #     context: .
+  #     dockerfile: ./Dockerfile
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   environment:
+  #     - DATABASE_FILE=SmartHouse.db
+  #     - DATABASE_FILE_PATH
+  smarthousehub.couchbase-server:
+    image: couchbase
     ports:
-      - "80:80"
-      - "443:443"
-    environment:
-      - DATABASE_FILE=SmartHouse.db
-      # - DATABASE_FILE_PATH
+      - "8091:8091"
+    networks:
+      - smarthousehub
+  smarthousehub.couchbase-sync-gateway:
+    image: couchbase/sync-gateway
+    depends_on:
+      - smarthousehub.couchbase-server
+    ports:
+      - "4984:4984"
+      - "4985:4985"
+      - "4986:4986"
+    volumes:
+      - ./gatewayConfig.json:/etc/sync_gateway/config.json
+    networks:
+      - smarthousehub
+
+networks:
+  smarthousehub:
