@@ -1,5 +1,5 @@
-﻿using System.IO.Ports;
-using System.Text.Json.Serialization;
+﻿using SmartHouseHub.API;
+﻿using System.Text.Json.Serialization;
 using SmartHouseHub.API.Brokers.ZWave;
 using SmartHouseHub.API.Helpers;
 using SmartHouseHub.API.Interfaces;
@@ -22,26 +22,40 @@ builder.Services.AddSwaggerGen();
 
 // Logger
 builder.Services.AddLogging(loggerSeq =>
-	loggerSeq.AddSeq(builder.Configuration.GetSection("Seq")));
+    loggerSeq.AddSeq(builder.Configuration.GetSection("Seq")));
+
+var mapper = MapperConfig.RegisterMaps().CreateMapper();
+builder.Services.AddSingleton(mapper);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddMvc().AddJsonOptions(options =>
 {
-	options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
-// Add services
-builder.Services.AddTransient<IDeviceService, DeviceService>();
-builder.Services.AddTransient<ILogService, LogService>();
+// Add service
 builder.Services.AddTransient<IZWaveBrokerService, ZWaveBrokerService>();
 builder.Services.AddTransient<IZWaveCommands, ZWaveCommands>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 // Add Brokers
-//TODO need to testing this broker
 //TODO need to check if the port is free
 builder.Services.AddSingleton<IZWaveBroker>(provider => new ZWaveBroker("COM3"));
 
+// commands for broker
+builder.Services.AddTransient<IZWaveCommands, ZWaveCommands>();
+
 // Add database
 builder.Services.AddSingleton<LiteDbHelper>();
+
+// TODO: Move it 
+//new CouchbaseLiteHelper().CreateReplicator(new()
+//{
+//    DbName = "db",
+//    Password = "pass",
+//    Username = "Edge1User",
+//    Id = Guid.NewGuid(),
+//});
 
 var app = builder.Build();
 
@@ -51,8 +65,8 @@ app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

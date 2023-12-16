@@ -1,0 +1,21 @@
+{
+	"bootstrap": {
+		"server": "couchbase://smarthousehub.couchbase-server",
+		"username": "Edge1User",
+		"password": "pass",
+		"server_tls_skip_verify": true,
+		"use_tls_server": false
+	},
+	"replicator": {},
+	"api": {
+		"admin_interface": ":4985",
+		"admin_interface_authentication": false
+	},
+	"logging": {
+		"console": {
+			"log_level": "debug",
+			"log_keys": ["HTTP", "Import", "CRUD", "Cache"],
+			"color_enabled": true
+		}
+	}
+}
