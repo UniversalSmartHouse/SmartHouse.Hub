@@ -15,11 +15,14 @@ namespace SmartHouseHub.API.Brokers.ZWave
 			_controller.NodeOperationProgress += NodeOperationProgressHandler;
 			_controller.NodeUpdated += NodeUpdatedHandler;
 			_controller.DiscoveryProgress += DiscoveryProgress;
+
+			_controller.Connect();
 		}
 
+		//TODO need to add initialization after starting the program
 		public void Initialize()
 		{
-			_controller.Connect();
+			_controller.Initialize();
 		}
 
 		public void AddDevice(byte nodeId)
@@ -43,6 +46,7 @@ namespace SmartHouseHub.API.Brokers.ZWave
 		}
 		
 		//TODO need to move it
+		//TODO need to fix this command
 		public void SendBinarySwitchCommand(byte nodeId, bool state)
 		{
 			var node = _controller.GetNode(nodeId);
@@ -53,20 +57,33 @@ namespace SmartHouseHub.API.Brokers.ZWave
 			}
 		}
 
+		public List<ZWaveNode> GetAllNode()
+		{
+			return _controller.Nodes;
+		}
+
+		public ZWaveNode GetNodeById(byte nodeId)
+		{
+			return _controller.Nodes.FirstOrDefault(node => node.Id == nodeId);
+		}
+
 		public void Dispose()
 		{
 			_controller.Dispose();
 		}
 
 		private void NodeUpdatedHandler(object sender, NodeUpdatedEventArgs args)
-		{
+		 {
 			if (args != null) 
 			{
 				var existingNode = _controller.Nodes.Where(x => x.Id == args.NodeId);
 
-				if (existingNode == null) 
+				foreach(var node in existingNode)
 				{
-					_controller.Nodes.Add(new ZWaveNode() { Id = args.NodeId });
+					if (node.Id != args.NodeId)
+					{
+						_controller.Nodes.Add(new ZWaveNode() { Id = args.NodeId });
+					}
 				}
 			}
 		}
@@ -121,7 +138,6 @@ namespace SmartHouseHub.API.Brokers.ZWave
 			switch (args.Status)
 			{
 				case ControllerStatus.Connected:
-					_controller.Initialize();
 					break;
 				case ControllerStatus.Disconnected:
 					Dispose();

@@ -32,28 +32,12 @@ builder.Services.AddMvc().AddJsonOptions(options =>
 // Add services
 builder.Services.AddTransient<IDeviceService, DeviceService>();
 builder.Services.AddTransient<ILogService, LogService>();
+builder.Services.AddTransient<IZWaveBrokerService, ZWaveBrokerService>();
 
 // Add Brokers
-var portName = "COM3";
-var isPortAvailable = true;
-
-try
-{
-	using (var port = new SerialPort(portName))
-	{
-		port.Open();
-	}
-}
-catch (UnauthorizedAccessException)
-{
-	isPortAvailable = false;
-}
-
-if (isPortAvailable)
-{
-	//TODO need to testing this broker
-	builder.Services.AddSingleton<IZWaveBroker>(provider => new ZWaveBroker(portName));
-}
+//TODO need to testing this broker
+//TODO need to check if the port is free
+builder.Services.AddSingleton<IZWaveBroker>(provider => new ZWaveBroker("COM3"));
 
 // Add database
 builder.Services.AddSingleton<LiteDbHelper>();
