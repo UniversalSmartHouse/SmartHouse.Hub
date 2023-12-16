@@ -1,5 +1,4 @@
-﻿using System.IO.Ports;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using SmartHouseHub.API.Brokers.ZWave;
 using SmartHouseHub.API.Helpers;
 using SmartHouseHub.API.Interfaces;
@@ -33,12 +32,13 @@ builder.Services.AddMvc().AddJsonOptions(options =>
 builder.Services.AddTransient<IDeviceService, DeviceService>();
 builder.Services.AddTransient<ILogService, LogService>();
 builder.Services.AddTransient<IZWaveBrokerService, ZWaveBrokerService>();
-builder.Services.AddTransient<IZWaveCommands, ZWaveCommands>();
 
 // Add Brokers
-//TODO need to testing this broker
 //TODO need to check if the port is free
 builder.Services.AddSingleton<IZWaveBroker>(provider => new ZWaveBroker("COM3"));
+
+// commands for broker
+builder.Services.AddTransient<IZWaveCommands, ZWaveCommands>();
 
 // Add database
 builder.Services.AddSingleton<LiteDbHelper>();
