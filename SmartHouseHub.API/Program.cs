@@ -29,6 +29,8 @@ builder.Services.AddMvc().AddJsonOptions(options =>
 });
 
 // Add services
+builder.Services.AddTransient<IDeviceService, DeviceService>();
+builder.Services.AddTransient<ILogService, LogService>();
 builder.Services.AddTransient<IZWaveBrokerService, ZWaveBrokerService>();
 
 // Add Brokers
