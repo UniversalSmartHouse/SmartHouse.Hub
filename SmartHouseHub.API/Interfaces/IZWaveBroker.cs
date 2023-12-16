@@ -7,7 +7,6 @@ namespace SmartHouseHub.API.Interfaces
 		void Initialize();
 		void AddDevice(byte nodeId);
 		void RemoveDevice(byte nodeId);
-		void SendBinarySwitchCommand(byte nodeId, bool state);
 		List<ZWaveNode> GetAllNode();
 		ZWaveNode GetNodeById(byte nodeId);
 	}

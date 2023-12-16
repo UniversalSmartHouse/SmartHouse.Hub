@@ -33,6 +33,7 @@ builder.Services.AddMvc().AddJsonOptions(options =>
 builder.Services.AddTransient<IDeviceService, DeviceService>();
 builder.Services.AddTransient<ILogService, LogService>();
 builder.Services.AddTransient<IZWaveBrokerService, ZWaveBrokerService>();
+builder.Services.AddTransient<IZWaveCommands, ZWaveCommands>();
 
 // Add Brokers
 //TODO need to testing this broker

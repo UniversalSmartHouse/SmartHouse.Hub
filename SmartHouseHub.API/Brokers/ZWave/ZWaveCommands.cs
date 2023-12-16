@@ -1,11 +1,16 @@
-﻿namespace SmartHouseHub.API.Brokers.ZWave
-{
-	public static class ZWaveCommands
-	{
-		private readonly static byte _commandClass = 0x25;
-		private readonly static byte _commandTypeSet = 0x01;
+﻿using SmartHouseHub.API.Interfaces;
+using ZWaveLib;
 
-		public static byte[] SwitchBinary(bool state) =>
-			new byte[] { _commandClass, _commandTypeSet, state ? (byte)0xFF : (byte)0x00 };
+namespace SmartHouseHub.API.Brokers.ZWave
+{
+	public class ZWaveCommands : IZWaveCommands
+	{
+		public void SendBinarySwitchCommand(ZWaveNode node, bool state)
+		{
+			if (node.SupportCommandClass(CommandClass.SwitchBinary))
+			{
+				node.SendDataRequest(ZWaveUtilsCommands.SwitchBinary(state));
+			}
+		}
 	}
 }
