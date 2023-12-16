@@ -1,9 +1,9 @@
 ﻿using SmartHouseHub.API;
+﻿using System.Text.Json.Serialization;
 using SmartHouseHub.API.Brokers.ZWave;
 using SmartHouseHub.API.Helpers;
 using SmartHouseHub.API.Interfaces;
 using SmartHouseHub.API.Servises;
-using System.Text.Json.Serialization;
 
 // For dev
 Environment.SetEnvironmentVariable("DATABASE_FILE", "SmartHouse.db");
@@ -39,9 +39,11 @@ builder.Services.AddTransient<IZWaveCommands, ZWaveCommands>();
 builder.Services.AddTransient<IUserService, UserService>();
 
 // Add Brokers
-//TODO need to testing this broker
 //TODO need to check if the port is free
 builder.Services.AddSingleton<IZWaveBroker>(provider => new ZWaveBroker("COM3"));
+
+// commands for broker
+builder.Services.AddTransient<IZWaveCommands, ZWaveCommands>();
 
 // Add database
 builder.Services.AddSingleton<LiteDbHelper>();

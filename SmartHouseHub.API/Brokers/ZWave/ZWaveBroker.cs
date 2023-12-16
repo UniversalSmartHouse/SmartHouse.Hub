@@ -17,9 +17,10 @@ namespace SmartHouseHub.API.Brokers.ZWave
 			_controller.DiscoveryProgress += DiscoveryProgress;
 
 			_controller.Connect();
+
+			Initialize();
 		}
 
-		//TODO need to add initialization after starting the program
 		public void Initialize()
 		{
 			_controller.Initialize();
