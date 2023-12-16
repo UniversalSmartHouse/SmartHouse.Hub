@@ -53,19 +53,6 @@ namespace SmartHouseHub.API.Controllers
 			}
 		}
 
-		[HttpGet("/Initialize")]
-		public async Task Initialize()
-		{
-			try
-			{
-				await _zWaveBrokerService.Initialize();
-			}
-			catch (Exception ex)
-			{
-				throw;
-			}
-		}
-
 		[HttpDelete("id")]
 		public async Task RemoveDevice(byte id)
 		{

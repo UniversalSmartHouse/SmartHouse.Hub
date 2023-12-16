@@ -18,12 +18,7 @@ namespace SmartHouseHub.API.Brokers.ZWave
 
 			_controller.Connect();
 
-			Initialize();
-		}
-
-		public void Initialize()
-		{
-			_controller.Initialize();
+			_controller.Initialize(); ;
 		}
 
 		public void AddDevice(byte nodeId)

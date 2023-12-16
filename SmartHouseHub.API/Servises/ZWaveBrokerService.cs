@@ -39,11 +39,6 @@ namespace SmartHouseHub.API.Servises
 			}
 		}
 
-		public async Task Initialize()
-		{
-			_broker.Initialize();
-		}
-
 		public async Task Stop()
 		{
 			_broker.Dispose();
