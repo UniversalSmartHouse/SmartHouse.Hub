@@ -1,14 +1,13 @@
 ﻿using LiteDB;
 using Medallion.Shell;
-using SmartHouseHub.API.DTOs;
+using SmartHouseHub.API.Model;
 
 namespace SmartHouseHub.API.Helpers
 {
     public class LiteDbHelper : IDisposable
     {
         public LiteDatabase Database { get; private set; }
-        public ILiteCollection<DeviceDto> Instances { get; private set; }
-        public ILiteCollection<LogDto> Log { get; private set; }
+        public ILiteCollection<User> Users { get; private set; }
 
         public LiteDbHelper()
         {
@@ -40,14 +39,6 @@ namespace SmartHouseHub.API.Helpers
             }
         }
 
-        private void CreateDbInstance()
-        {
-            Database = new(
-               Path.Combine(Directory.GetCurrentDirectory(),
-               Environment.GetEnvironmentVariable("DATABASE_FILE")));
-
-            Instances = Database.GetCollection<DeviceDto>("Instances");
-            Log = Database.GetCollection<LogDto>("Log");
-        }
+        private void CreateDbInstance() => Database = new(SD.LiteDBFile);
     }
 }
