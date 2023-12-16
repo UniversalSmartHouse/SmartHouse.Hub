@@ -46,14 +46,13 @@ namespace SmartHouseHub.API.Brokers.ZWave
 		}
 		
 		//TODO need to move it
-		//TODO need to fix this command
 		public void SendBinarySwitchCommand(byte nodeId, bool state)
 		{
 			var node = _controller.GetNode(nodeId);
 
 			if (node.SupportCommandClass(CommandClass.SwitchBinary))
 			{
-				_controller.SendMessage(new ZWaveMessage(ZWaveCommands.SwitchBinary(state, node.Id)));
+				node.SendDataRequest(ZWaveCommands.SwitchBinary(state));
 			}
 		}
 
@@ -73,7 +72,7 @@ namespace SmartHouseHub.API.Brokers.ZWave
 		}
 
 		private void NodeUpdatedHandler(object sender, NodeUpdatedEventArgs args)
-		 {
+		{
 			if (args != null) 
 			{
 				var existingNode = _controller.Nodes.Where(x => x.Id == args.NodeId);

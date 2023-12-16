@@ -8,5 +8,6 @@ namespace SmartHouseHub.API.Interfaces
 		Task Stop();
 		Task<List<ZWaveNode>> GetAllNode();
 		Task<ZWaveNode> GetNodeById(byte nodeId);
+		Task Initialize();
 	}
 }

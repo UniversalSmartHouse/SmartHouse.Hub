@@ -52,5 +52,18 @@ namespace SmartHouseHub.API.Controllers
 				throw;
 			}
 		}
+
+		[HttpGet("/Initialize")]
+		public async Task Initialize()
+		{
+			try
+			{
+				await _zWaveBrokerService.Initialize();
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
+		}
 	}
 }
