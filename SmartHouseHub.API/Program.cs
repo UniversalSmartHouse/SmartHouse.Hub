@@ -1,9 +1,10 @@
 ﻿using SmartHouseHub.API;
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 using SmartHouseHub.API.Brokers.ZWave;
 using SmartHouseHub.API.Helpers;
 using SmartHouseHub.API.Interfaces;
 using SmartHouseHub.API.Servises;
+using SmartHouseHub.API.Brokers.ZWave.Commands;
 
 // For dev
 Environment.SetEnvironmentVariable("DATABASE_FILE", "SmartHouse.db");
