@@ -65,5 +65,18 @@ namespace SmartHouseHub.API.Controllers
 				throw;
 			}
 		}
+
+		[HttpDelete("id")]
+		public async Task RemoveDevice(byte id)
+		{
+			try
+			{
+				await _zWaveBrokerService.RemoveDevice(id);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
+		}
 	}
 }
