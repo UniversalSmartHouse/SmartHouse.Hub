@@ -5,6 +5,7 @@ using SmartHouseHub.API.Interfaces;
 namespace SmartHouseHub.API.Controllers
 {
     [ApiController]
+    [Route("[controller]")]
     public class UserController : Controller
     {
         public readonly IUserService _userService;

@@ -1,6 +1,6 @@
 # SmartHouse.API
 
-# env
+## env
 
 ```dosini
 LiteDB_FILE=SmartHouse.db
