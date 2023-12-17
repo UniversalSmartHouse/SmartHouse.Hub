@@ -9,6 +9,7 @@ COPY ./shall/*.sh ./shall/
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["SmartHouseHub.API/SmartHouseHub.API.csproj", "SmartHouseHub.API/"]
+COPY ["ZWaveLib/ZWaveLib.csproj", "ZWaveLibZWaveLib/"]
 RUN dotnet restore "SmartHouseHub.API/SmartHouseHub.API.csproj"
 COPY . .
 WORKDIR "/src/SmartHouseHub.API"
