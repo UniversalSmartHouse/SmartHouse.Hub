@@ -18,7 +18,7 @@ namespace SmartHouseHub.API.Brokers.ZWave
 
 			_controller.Connect();
 
-			_controller.Initialize(); ;
+			_controller.Initialize(); 
 		}
 
 		public void AddDevice(byte nodeId)
@@ -31,6 +31,7 @@ namespace SmartHouseHub.API.Brokers.ZWave
 			}
 		}
 
+		//TODO need to fix method
 		public void RemoveDevice(byte nodeId)
 		{
 			var existingNode = _controller.Nodes.FirstOrDefault(x => x.Id == nodeId);
@@ -66,7 +67,7 @@ namespace SmartHouseHub.API.Brokers.ZWave
 				{
 					if (node.Id != args.NodeId)
 					{
-						_controller.Nodes.Add(new ZWaveNode() { Id = args.NodeId });
+						_controller.Nodes.Add(args.Event.Node);
 					}
 				}
 			}
