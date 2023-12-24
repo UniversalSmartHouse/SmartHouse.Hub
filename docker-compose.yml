@@ -11,16 +11,16 @@ services:
   #   environment:
   #     - DATABASE_FILE=SmartHouse.db
   #     - DATABASE_FILE_PATH
-  smarthousehub.couchbase-server:
-    image: couchbase
-    ports:
-      - "8091:8091"
-    networks:
-      - smarthousehub
+  # smarthousehub.couchbase-server:
+  #   image: couchbase
+  #   ports:
+  #     - "8091:8091"
+  #   networks:
+  #     - smarthousehub
   smarthousehub.couchbase-sync-gateway:
     image: couchbase/sync-gateway
-    depends_on:
-      - smarthousehub.couchbase-server
+    # depends_on:
+    #   - smarthousehub.couchbase-server
     ports:
       - "4984:4984"
       - "4985:4985"
