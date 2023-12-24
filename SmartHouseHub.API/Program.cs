@@ -50,13 +50,13 @@ builder.Services.AddTransient<IZWaveCommands, ZWaveCommands>();
 builder.Services.AddSingleton<LiteDbHelper>();
 
 // TODO: Move it 
-//new CouchbaseLiteHelper().CreateReplicator(new()
-//{
-//    DbName = "db",
-//    Password = "pass",
-//    Username = "Edge1User",
-//    Id = Guid.NewGuid(),
-//});
+new CouchbaseLiteHelper().CreateReplicator(new()
+{
+    DbName = "SmartHouseAPIDB",
+    Password = "pass",
+    Username = "test",
+    Id = Guid.NewGuid(),
+});
 
 var app = builder.Build();
 
