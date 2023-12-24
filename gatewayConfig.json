@@ -1,8 +1,8 @@
 {
 	"bootstrap": {
-		"server": "couchbase://smarthousehub.couchbase-server",
-		"username": "Edge1User",
-		"password": "pass",
+		"server": "couchbase://185.154.15.65",
+		"username": "chmo",
+		"password": "chmochmo",
 		"server_tls_skip_verify": true,
 		"use_tls_server": false
 	},
